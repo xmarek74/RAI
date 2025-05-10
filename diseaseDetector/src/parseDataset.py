@@ -14,6 +14,18 @@ dirs = ["train", "val"]
 subdirs = ["healthy", "diseased"]
 healthy = []
 diseased = []
+#parse images only when healthy&unhealthy version is available
+selectedProducts = {
+    "Apple": "Apple",
+    "Cherry_(including_sour)": "Cherry",
+    "Corn_(maize)": "Corn",
+    "Grape": "Grape",
+    "Peach": "Peach",
+    "Pepper,_bell": "Pepper",
+    "Potato": "Potato",
+    "Strawberry": "Strawberry",
+    "Tomato": "Tomato"
+}
 
 #create directory structure for training and validation
 for dir in dirs:
@@ -24,6 +36,8 @@ for dir in dirs:
 #https://tqdm.github.io/docs/tqdm/#parameters
 for dir in tqdm(classes, "Creating dataset, please wait...", ncols=60, bar_format="{l_bar}{bar}| {n_fmt}/{total_fmt}", colour="green"):
     product, disease = dir.split("___")
+    if (product not in selectedProducts):
+        continue
     label = ""
     if (disease.strip() == "healthy"):
         label = "healthy"
@@ -45,7 +59,7 @@ for dir in tqdm(classes, "Creating dataset, please wait...", ncols=60, bar_forma
         for name in files:
             src = os.path.join(os.path.join(source, dir), name)
             suffix = os.path.splitext(name)[1]
-            finalName = f"{product}_{disease}_{index}_{suffix}"
+            finalName = f"{selectedProducts[product]}_{disease}_{index}_{suffix}"
             dst = os.path.join(target, split, label, finalName)
             shutil.copyfile(src, dst)
             index += 1
