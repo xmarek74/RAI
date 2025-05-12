@@ -1,9 +1,11 @@
 #imports
 import sys
+from keras._tf_keras.keras import models ,layers ,optimizers, preprocessing
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QVBoxLayout, QWidget, QFileDialog, QDesktopWidget
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QStandardPaths
 from os.path import dirname
+import numpy as np
 
 #main class representing gui
 class MyWindow(QMainWindow):
@@ -48,12 +50,23 @@ class MyWindow(QMainWindow):
             pixmap = QPixmap(fileName)
             self.imageLabel.setPixmap(pixmap.scaled(self.imageLabel.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation))
             self.buttonAnalyze.setEnabled(True)
-            self.file_path = fileName
+            self.filePath = fileName
             #set last used as current location
             self.dir = dirname(fileName)
     #TODO connect with main CNN
     def analyzeImage(self):
-        pass
+        #static for now
+        model = models.load_model("diseaseModel.h5")
+        file = preprocessing.image.load_img(self.filePath, target_size=(128, 128))
+        #normalize rgb
+        fileArray = preprocessing.image.img_to_array(file) / 255.0
+        #add dim
+        fileArray = np.expand_dims(fileArray, axis=0)
+        prediction = np.argmax(model.predict(fileArray), axis=1)
+        #0 means disased 1 means healthy
+        self.result = "healthy" if (prediction[0]) else "diseased"
+        print(f"{self.result}")
+
 
 def main():
     app = QApplication(sys.argv)
