@@ -1,8 +1,10 @@
 #imports
 import sys
 import os
-from keras._tf_keras.keras import models ,layers ,optimizers, preprocessing
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+from keras._tf_keras.keras import models ,layers ,optimizers, preprocessing
+import warnings
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLineEdit, QLabel, QVBoxLayout, QWidget, QFileDialog, QDesktopWidget, QMessageBox, QHBoxLayout, QDialog
 from PyQt5.QtGui import QPixmap, QIcon
 from PyQt5.QtCore import Qt, QStandardPaths
