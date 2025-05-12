@@ -86,7 +86,25 @@ def evaluateModel(modelPath):
     plt.show()
 #TODO print help
 def printHelp():
-    print("Help")
+    print("""
+Usage: python3 ./main.py [option] [argument]
+
+Options:
+  -t, --train <model_name>    Trains a new image classification model using the dataset in ../public/train.
+                              Saves the model under the specified name (e.g. model.h5).
+                              Example: python3 ./main.py --t my_model.h5
+
+  -e, --eval <model_path>     Evaluates an existing trained model against the validation dataset in ../public/val.
+                              Prints accuracy, precision, recall, F1-score and displays confusion matrix.
+                              Example: python3 ./main.py --e my_model.h5
+
+  -u, --usage                 Displays this help message.
+                              Example: python3 ./main.py -u
+
+Note:
+  - Only one option may be used at a time.
+  - Model input/output formats are in Keras (.h5) format.
+    """)
 
 def countArgs(array):
     sum = 0
@@ -105,7 +123,7 @@ if __name__ == "__main__":
     if (countArgs([args.eval, args.train, args.usage]) == 1):
         if args.eval:
             evaluateModel(args.eval)
-        elif args.train:
+        elif args.train.endswith(".h5", ".keras"):
             trainModel(args.train)
         else:
             printHelp()
