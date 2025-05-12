@@ -1,17 +1,48 @@
 QMainWindow {
     background-color: #f0f0f0;
 }
-QPushButton {
+QPushButton#guiButton {
     background-color: #6ec259;
     border-radius: 15px;
     padding: 15px;
     font-weight:bold;
     font-size: 15px;
-
 }
 
 QLabel#imageArea {
     border: 2px dashed rgb(95, 95, 95);
     border-radius: 12px;
     background-color: #f9f9f9;
+}
+
+QMessageBox {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+
+QMessageBox QLabel {
+    margin-top: 2em;
+    font-weight: bold;
+}
+
+QDialog {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+}
+
+QPushButton#messageButton {
+    background-color: #6ec259;
+    border-radius: 15px;
+    padding: 12px;
+    font-weight:bold;
+    font-size: 12px;
+}
+
+QPushButton:hover {
+    background-color:#5ab84b;
+}
+
+QDialog QLabel {
+    font-weight:bold;
+    font-size:12px;
 }
