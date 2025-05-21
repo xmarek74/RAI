@@ -1,8 +1,0 @@
-{
-"python.languageServer": "Pylance",
-"python.analysis.disabled": ["reportUndefinedVariable"],
-"python.autoComplete.extraPaths": [
-    "c:/Users/User/Documents/RAI/RIA/diseaseDetector/env/Lib/site-packages"
-],
-
-}
