@@ -1,3 +1,4 @@
 env/
-public/
+public/train
+public/val
 PlantVillage-Dataset/
