@@ -167,17 +167,22 @@ def printHelp():
 Usage: python3 ./main.py [option] [argument]
 
 Options:
-  -t, --train <model_name>    Trains a new image classification model using the dataset in ../public/train.
-                              Saves the model under the specified name (e.g. model.h5).
-                              Example: python3 ./main.py -t model.h5
+  -t, --train <model_name>     Trains a new image classification model using the dataset in ../public/train.
+                               Saves the model under the specified name (e.g. model.h5).
+                               Example: python3 ./main.py -t model.h5
 
-  -e, --eval <model_path>     Evaluates an existing trained model against the validation dataset in ../public/val.
-                              Prints accuracy, precision, recall, F1-score and displays confusion matrix.
-                              Example: python3 ./main.py -e model.h5
+  -e, --eval <model_path>      Evaluates an existing trained model against the validation dataset in ../public/val.
+                               Prints accuracy, precision, recall, F1-score and displays confusion matrix.
+                               Example: python3 ./main.py -e model.h5
 
-  -u, --usage                 Displays this help message.
-                              Example: python3 ./main.py -u
+  -h, --history <history_path> Displays training history from a JSON file generated during training.
+                               Shows plots comparing training and validation metrics over epochs.
+                               Also displays the learning rate schedule if available.
+                               Example: python3 ./main.py -h history.json
 
+  -u, --usage                  Displays this help message.
+                               Example: python3 ./main.py -u
+    
 Note:
   - Only one option may be used at a time.
   - Model input/output formats are in .keras or .h5 format.
