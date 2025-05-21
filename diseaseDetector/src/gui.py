@@ -13,7 +13,7 @@ import numpy as np
 
 #class for pop-up after loading model
 class CustomDialog(QDialog):
-    def __init__(self, title, message, parent=None):
+    def __init__(self, title, message, parent=None, iconPath = "../public/icons/ok.png"):
         super().__init__(parent)
         #init atributes
         self.setWindowTitle(title)
@@ -27,7 +27,7 @@ class CustomDialog(QDialog):
         #set up horizontal layout (flex look-a-like) for icon and text
         innerLayout = QHBoxLayout()
         iconLabel = QLabel()
-        icon = QIcon("../public/icons/ok.png")
+        icon = QIcon(iconPath)
         iconPixmap = icon.pixmap(65, 65)
         iconLabel.setPixmap(iconPixmap)
         iconLabel.setFixedWidth(65)
@@ -106,7 +106,7 @@ class MyWindow(QMainWindow):
 
     def loadImage(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Open Image", self.dir, "Images Files (*.png *.jpg *.jpeg)")
-        if fileName:
+        if (fileName):
             pixmap = QPixmap(fileName)
             self.imageLabel.setPixmap(pixmap.scaled(self.imageLabel.size(), Qt.IgnoreAspectRatio, Qt.SmoothTransformation))
             if (self.model):
@@ -116,7 +116,7 @@ class MyWindow(QMainWindow):
             self.dir = dirname(fileName)
     def loadModel(self):
         fileName, _ = QFileDialog.getOpenFileName(self, "Open Model", self.dir, "Keras files (*.h5 *.keras)")
-        if fileName:
+        if (fileName):
             self.model = fileName
             alert = CustomDialog("Success", "Model has been loaded successfully", self)
             if (self.filePath):
@@ -130,17 +130,20 @@ class MyWindow(QMainWindow):
         #static for now
         model = models.load_model(self.model)
         
-        file = preprocessing.image.load_img(self.filePath, target_size=(128, 128)) 
+        file = preprocessing.image.load_img(self.filePath, target_size=(64, 64)) 
         #normalize rgb
         fileArray = preprocessing.image.img_to_array(file) / 255.0
         #add dim
         fileArray = np.expand_dims(fileArray, axis=0)
         prediction = np.argmax(model.predict(fileArray), axis=1)
         #0 means disased 1 means healthy
-        self.result = "healthy" if (prediction[0]) else "diseased"
-        print(f"{self.result}")
-
-
+        self.result = True if (prediction[0]) else False
+        if (self.result):
+            dialog = CustomDialog("Analysis Result", "Congratulations, your plant is healthy!", self)
+            dialog.exec_()
+        else:
+            dialog = CustomDialog("Analysis Result", "Unfortunetly your plant is diseased!", self, "../public/icons/notOk.png")
+            dialog.exec_()
 def main():
     app = QApplication(sys.argv)
     window = MyWindow()
