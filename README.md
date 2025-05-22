@@ -3,7 +3,7 @@
 Tento projekt implementuje konvoluční neuronovou síť (CNN) pro klasifikaci nemocí rostlin na základě obrázků listů.
 
 ## Funkce
-- Trénování CNN modelu pomocí Keras s augmentací dat
+- Trénování CNN modelu pomocí Keras
 - Vyhodnocení modelu s metrikami jako F1-score, preciznost, recall
 - Grafická aplikace v PyQt5 pro snadné načtení modelu a obrázku, spuštění analýzy a zobrazení výsledku
 - Podpora standardních formátů modelů (.h5, .keras) a vstupních obrázků
